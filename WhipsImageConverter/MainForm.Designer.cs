@@ -629,7 +629,7 @@
             // 
             // backgroundWorkerUpdate
             // 
-            this.backgroundWorkerUpdate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.OnBackgroundWorkerUpdateDoWork);
+            //this.backgroundWorkerUpdate.DoWork += new System.ComponentModel.DoWorkEventHandler(this.OnBackgroundWorkerUpdateDoWork);
             // 
             // linkLabel_GitHub
             // 

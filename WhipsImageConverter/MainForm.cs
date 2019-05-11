@@ -178,7 +178,7 @@ namespace WhipsImageConverter
             this.Text = formTitle;
 
             //Check for any new updates
-            StartUpdateBackgroundWorker();
+            //StartUpdateBackgroundWorker();
 
             //Construct colormap
             ConstructColorMap();
@@ -198,52 +198,52 @@ namespace WhipsImageConverter
         }
 
         #region Update Checking
-        void StartUpdateBackgroundWorker()
-        {
-            if (!backgroundWorkerUpdate.IsBusy)
-            {
-                backgroundWorkerUpdate.RunWorkerAsync();
-            }
-        }
+        //void StartUpdateBackgroundWorker()
+        //{
+        //    if (!backgroundWorkerUpdate.IsBusy)
+        //    {
+        //        backgroundWorkerUpdate.RunWorkerAsync();
+        //    }
+        //}
 
-        private void OnBackgroundWorkerUpdateDoWork(object sender, DoWorkEventArgs e)
-        {
-            CheckForUpdates();
-        }
+        //private void OnBackgroundWorkerUpdateDoWork(object sender, DoWorkEventArgs e)
+        //{
+        //    CheckForUpdates();
+        //}
 
-        void CheckForUpdates()
-        {
-            var webRequest = (HttpWebRequest)WebRequest.Create(githubVersionUrl);
-            webRequest.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
-            webRequest.AllowAutoRedirect = true;
-            HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
+        //void CheckForUpdates()
+        //{
+        //    var webRequest = (HttpWebRequest)WebRequest.Create(githubVersionUrl);
+        //    webRequest.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
+        //    webRequest.AllowAutoRedirect = true;
+        //    HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
 
-            var latestVersionUrl = webResponse.ResponseUri.ToString();
-            var urlSplit = latestVersionUrl.Split('/');
-            if (urlSplit.Length < 1)
-                return;
-            var latestVersionString = urlSplit[urlSplit.Length - 1];
-            latestVersionString = latestVersionString.ToLower().Replace("v", "");
-            
-            Version latestVersion = new Version();
-            if (!Version.TryParse(latestVersionString, out latestVersion))
-                return;
+        //    var latestVersionUrl = webResponse.ResponseUri.ToString();
+        //    var urlSplit = latestVersionUrl.Split('/');
+        //    if (urlSplit.Length < 1)
+        //        return;
+        //    var latestVersionString = urlSplit[urlSplit.Length - 1];
+        //    latestVersionString = latestVersionString.ToLower().Replace("v", "");
 
-            Version myVersion = new Version();
-            if (!Version.TryParse(myVersionString, out myVersion))
-                return;
+        //    Version latestVersion = new Version();
+        //    if (!Version.TryParse(latestVersionString, out latestVersion))
+        //        return;
 
-            if (latestVersion > myVersion)
-            {
-                var confirmResult = MessageBox.Show($"Old version detected. Update to newest version?\nYour version: {myVersionString}\nLatest release: {latestVersionString}",
-                    "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-                if (confirmResult == DialogResult.Yes)
-                {
-                    System.Diagnostics.Process.Start(githubVersionUrl);
-                    this.Close();
-                }
-            }            
-        }
+        //    Version myVersion = new Version();
+        //    if (!Version.TryParse(myVersionString, out myVersion))
+        //        return;
+
+        //    if (latestVersion > myVersion)
+        //    {
+        //        var confirmResult = MessageBox.Show($"Old version detected. Update to newest version?\nYour version: {myVersionString}\nLatest release: {latestVersionString}",
+        //            "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+        //        if (confirmResult == DialogResult.Yes)
+        //        {
+        //            System.Diagnostics.Process.Start(githubVersionUrl);
+        //            this.Close();
+        //        }
+        //    }            
+        //}
         #endregion
 
         void ConstructColorMap()
